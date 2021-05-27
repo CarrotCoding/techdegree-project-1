@@ -6,8 +6,8 @@ number_of_tries = 0
 highscore = 0
 
 #creating a function to create the winning number within the game boundaries
-def guessinggame(rangebound):
-    return random.randrange(1, rangebound+1)
+def guessinggame():
+    return random.randrange(1, 11)
     #this makes sure the lower bounds is 1 and the upper bound includes the number the player provides
 
 
@@ -15,12 +15,9 @@ def guessinggame(rangebound):
 print("Welcome to the number guessing extravaganza")
 print("In this game you can guess as much as you like")
 print("Until the magic random number has been found")
-print("You can choose the upper boundary of the game to make it even more challenging\n")
 
-#setting the game boundaries
-rangebound = int(input("Please choose the upper boundary of your game\n"))
 #setting a random winning number within the boundaries
-winning_number = guessinggame(rangebound)
+winning_number = guessinggame()
 
 #here we print that there is no highscore yet when there isn't one yet
 if highscore == 0:
@@ -29,11 +26,11 @@ if highscore == 0:
 while player_choice != winning_number:
     #the error handling in case someone fills in a number outside of the game boundaries, a float or a string
     try:
-        player_choice = int(input("Please provide a number between 1 and {} \n".format(rangebound)))
-        if player_choice > rangebound or player_choice < 1:
+        player_choice = int(input("Please provide a number between 1 and 10\n"))
+        if player_choice > 10 or player_choice < 1:
             raise ValueError
     except:
-        print("Oh no! We ran into an issue. Please fill in a number between 1 and {}".format(rangebound))
+        print("Oh no! We ran into an issue. Please try again")
     #the game itself. We do not count an error try as a try
     else:
         if player_choice > winning_number:
@@ -63,7 +60,7 @@ while player_choice != winning_number:
             if player_continue.lower() == "y":
                 #here we make sure that the new winning_number is never the same winning_number
                 while winning_number == player_choice:
-                        winning_number = guessinggame(rangebound)
+                        winning_number = guessinggame()
                 #here we reset the number of tries so the player can start again
                 number_of_tries = 0
                 #here we print the current highscore before the new game
